@@ -2,13 +2,15 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Repositories\PatientRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
+use App\Repositories\EloquentPatientRepository;
 use App\Repositories\EloquentUserRepository;
-use Illuminate\Support\ServiceProvider;
 use App\Support\Tenancy\TenantContext;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             UserRepositoryInterface::class,
             EloquentUserRepository::class
+        );
+
+        $this->app->bind(
+            PatientRepositoryInterface::class,
+            EloquentPatientRepository::class
         );
     }
 
