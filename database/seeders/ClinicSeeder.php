@@ -10,7 +10,8 @@ class ClinicSeeder extends Seeder
     public function run(): void
     {
         Clinic::firstOrCreate([
-            'name' => 'Demo Clinic',
+           
+            'name' => ' Cityville',
         ]);
     }
 }
