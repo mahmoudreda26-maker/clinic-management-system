@@ -15,9 +15,12 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('clinic_id')->nullable()->constrained('clinics')->cascadeOnDelete();
             $table->string('name');
-            $table->enum('role', ['owner', 'doctor', 'nurse', 'receptionist', 'patient'])->default('receptionist');
+            $table->string('username')->unique();
+            $table->enum('role', ['owner', 'doctor', 'receptionist'])->default('receptionist');
             $table->string('email')->unique();
             $table->string('phone')->nullable()->unique();
+            $table->string('specialty')->nullable();
+            $table->string('syndicate_card_number')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(true);

@@ -11,16 +11,10 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('clinic_id')->constrained('clinics')->cascadeOnDelete();
-            $table->string('full_name');
-            $table->string('address')->nullable();
-            $table->string('national_id')->nullable();
-            $table->string('phone');
-            $table->enum('gender', ['male', 'female']);
-            $table->date('date_of_birth')->nullable();
-            $table->string('blood_type')->nullable();
-            $table->text('chronic_diseases')->nullable();
+            $table->string('name');
+            $table->string('national_id')->unique(); 
+            $table->string('phone')->nullable();
             $table->timestamps();
-            $table->index(['clinic_id', 'full_name']);
         });
     }
 

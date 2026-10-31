@@ -13,10 +13,8 @@ class SetTenantContext
         private readonly TenantContext $tenantContext
     ) {}
 
-    public function handle(
-        Request $request,
-        Closure $next
-    ): Response {
+    public function handle(Request $request,Closure $next): Response 
+    {
         // Get the authenticated user
         $user = $request->user();
 

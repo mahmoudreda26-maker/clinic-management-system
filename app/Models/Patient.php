@@ -12,16 +12,10 @@ class Patient extends Model
     use HasUuids;
 
     protected $fillable = [
-        'full_name',
-        'gender',
-        'email',
-        'address',
-        'phone',
+        'clinic_id',
+        'name',
         'national_id',
-        'date_of_birth',
-        'blood_type',
-        'chronic_diseases',
-
+        'phone'
     ];
 
     public function clinic()

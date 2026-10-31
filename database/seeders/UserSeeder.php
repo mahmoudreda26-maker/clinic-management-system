@@ -11,40 +11,31 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $clinic = Clinic::firstOrCreate(
-            ['name' => 'Demo Clinic']
-        );
+        $clinic = Clinic::firstOrCreate([
+            'name' => 'Demo Clinic'
+        ]);
 
         $users = [
             [
                 'name' => 'Mahmoud',
+                'username' => 'mahmoud',
                 'email' => 'owner@clinic.test',
                 'phone' => '01000000001',
                 'role' => 'owner',
             ],
             [
-                'name' => 'yasser',
+                'name' => 'Yasser',
+                'username' => 'yasser',
                 'email' => 'doc@clinic.test',
                 'phone' => '01000000002',
                 'role' => 'doctor',
             ],
             [
-                'name' => 'Reda',
-                'email' => 'nur@clinic.test',
-                'phone' => '01000000003',
-                'role' => 'nurse',
-            ],
-            [
                 'name' => 'Ali',
+                'username' => 'ali',
                 'email' => 'recep@clinic.test',
                 'phone' => '01000000004',
                 'role' => 'receptionist',
-            ],
-            [
-                'name' => 'Ahmed',
-                'email' => 'pat@clinic.test',
-                'phone' => '01000000005',
-                'role' => 'patient',
             ],
         ];
 
