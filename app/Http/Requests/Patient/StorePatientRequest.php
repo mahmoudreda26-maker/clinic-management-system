@@ -15,25 +15,13 @@ class StorePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => ['required', 'string', 'min:3', 'max:255'],
-
-            'gender' => ['required', Rule::in(['male', 'female'])],
-
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            
             'address' => ['nullable', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
+
             'phone' => ['required', 'string', 'max:20'],
 
-            'national_id' => ['nullable', 'string', 'max:30'],
-
-            'date_of_birth' => ['nullable', 'date', 'before_or_equal:today'],
-
-            'blood_type' => [
-                'nullable',
-                Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
-            ],
-
-            'chronic_diseases' => ['nullable', 'string', 'max:5000'],
+            'national_id' => ['nullable', 'string', 'max:14'],
 
             'clinic_id' => ['prohibited'],
         ];

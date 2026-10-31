@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\ApiResponse;
 use App\Http\Requests\Patient\StorePatientRequest;
 use App\Http\Requests\Patient\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
-use App\Http\Traits\ApiResponse;
 use App\Services\PatientService;
 
 class PatientController extends Controller
@@ -17,44 +17,30 @@ class PatientController extends Controller
         private readonly PatientService $patientService
     ) {}
 
-    /**
-     * عرض مرضى العيادة الحالية مع Pagination.
-     */
-    public function index()
-    {
-        $patients = $this->patientService->getAllPatients();
-
-        return $this->paginated(
-            $patients,
-            PatientResource::class,
-            'تم جلب المرضى بنجاح.'
-        );
-    }
-
-    /**
-     * عرض بيانات مريض محدد.
-     */
-    public function show(string $patientId)
+    // Get patient by ID
+    public function getPatientById(string $patientId)
     {
         $patient = $this->patientService->getPatientById($patientId);
 
-        if (!$patient) {
-            return $this->error(
-                'المريض غير موجود.',
-                404
-            );
-        }
-
         return $this->success(
             new PatientResource($patient),
-            'تم جلب بيانات المريض بنجاح.'
+            'Patient retrieved successfully'
         );
     }
 
-    /**
-     * إنشاء حساب المريض وسجله الطبي الأساسي.
-     */
-    public function store(StorePatientRequest $request)
+    // Get all patients
+    public function getAllPatients()
+    {
+        $patients = $this->patientService->getAllPatients();
+
+        return $this->success(
+            PatientResource::collection($patients),
+            'Patients retrieved successfully'
+        );
+    }
+
+    // Create patient
+    public function createPatient(StorePatientRequest $request)
     {
         $patient = $this->patientService->createPatient(
             $request->validated()
@@ -62,15 +48,12 @@ class PatientController extends Controller
 
         return $this->success(
             new PatientResource($patient),
-            'تم إنشاء المريض بنجاح.',
-            201
+            'Patient created successfully'
         );
     }
 
-    /**
-     * تحديث بيانات المريض المحدد.
-     */
-    public function update(
+    // Update patient
+    public function updatePatient(
         UpdatePatientRequest $request,
         string $patientId
     ) {
@@ -79,36 +62,20 @@ class PatientController extends Controller
             $request->validated()
         );
 
-        if (!$patient) {
-            return $this->error(
-                'المريض غير موجود.',
-                404
-            );
-        }
-
         return $this->success(
             new PatientResource($patient),
-            'تم تحديث بيانات المريض بنجاح.'
+            'Patient updated successfully'
         );
     }
 
-    /**
-     * حذف المريض المحدد في الـ Route.
-     */
-    public function destroy(string $patientId)
+    // Delete patient
+    public function deletePatient(string $patientId)
     {
-        $deleted = $this->patientService->deletePatient($patientId);
-
-        if (!$deleted) {
-            return $this->error(
-                'المريض غير موجود.',
-                404
-            );
-        }
+        $this->patientService->deletePatient($patientId);
 
         return $this->success(
             null,
-            'تم حذف المريض بنجاح.'
+            'Patient deleted successfully'
         );
     }
 }

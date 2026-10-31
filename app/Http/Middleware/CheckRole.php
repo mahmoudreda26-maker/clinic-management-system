@@ -11,11 +11,8 @@ class CheckRole
     /**
      * السماح بالدخول للأدوار المحددة فقط.
      */
-    public function handle(
-        Request $request,
-        Closure $next,
-        string ...$roles
-    ): Response {
+    public function handle(Request $request,Closure $next,string ...$roles): Response 
+    {
         // جلب المستخدم الحالي بعد Authentication.
         $user = $request->user();
 

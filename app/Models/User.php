@@ -29,8 +29,11 @@ class User extends Authenticatable
     protected $fillable = [
         'clinic_id',
         'name',
+        'username',
         'email',
         'phone',
+        'specialty',
+        'syndicate_card_number',
         'password',
         'role',
         'is_active',
